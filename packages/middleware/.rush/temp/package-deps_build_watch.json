@@ -1,0 +1,13 @@
+{
+  "files": {
+    "packages/middleware/.rush/temp/shrinkwrap-deps.json": "cd1452a54c853a65b11df0cae3c7a55b02fe5c90",
+    "packages/middleware/.eslintrc.js": "5e2435836dfbc01566eb0cb8292a25b6eb70dfc9",
+    "packages/middleware/.gitignore": "64dba6c4185464cd0fb36e84216014a89e51063b",
+    "packages/middleware/package.json": "e1378a2626e5c8e6e50dcf97ef65b11bac228275",
+    "packages/middleware/src/index.js": "cd5169f0fd4b1d92d18fab724898e837c69d370b",
+    "packages/middleware/src/validateBody.js": "9af026b52203c7c5850f34d0282b9f8eaeae4e2f",
+    "packages/middleware/src/validateBody.test.js": "8ba20a4d1236ab4844d84dbbd5c4611f40b39330",
+    "packages/middleware/tsconfig.json": "a2886f03bbd9087f13df4ac86da448897c8a3bf4"
+  },
+  "arguments": "tsc "
+}

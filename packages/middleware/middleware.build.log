@@ -1,0 +1,11 @@
+Invoking: tsc && jest 
+
+PASS src/validateBody.test.js
+  ✓ accepts correct body (201 ms)
+  ✓ throws error if body does not satisfy schema (61 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       2 passed, 2 total
+Snapshots:   0 total
+Time:        1.548 s, estimated 2 s
+Ran all test suites.
