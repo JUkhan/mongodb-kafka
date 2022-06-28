@@ -1,6 +1,6 @@
 const express = require('express');
 const router = require('./router');
-const errorHandler = require('./common/middlewaares/error-handler');
+const errorHandler = require('./common/middlewares/error-handler');
 const NotFoundError = require('./common/errors/not-found-error');
 
 const app = express();

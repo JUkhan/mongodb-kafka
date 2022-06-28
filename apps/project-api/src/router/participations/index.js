@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 const Participation = require('../../models/Participation');
 const publisher = require('../../publisher');
-const validateRequest = require('../../common/middlewaares/validate-request');
+const validateRequest = require('../../common/middlewares/validate-request');
 const NotFoundError = require('../../common/errors/not-found-error');
 const BadRequestError = require('../../common/errors/bad-request-error');
 
@@ -70,9 +70,9 @@ router.patch(
     if (req.body.state === participation.state) {
       throw new BadRequestError('No state transition');
     }
-    if (req.body.state) {
-      participation.state = req.body.state;
-    }
+
+    participation.state = req.body.state;
+
     await participation.save();
 
     publisher.publish('update', participation);
@@ -80,7 +80,4 @@ router.patch(
   }),
 );
 
-router.get('/test/max', (req, res) => {
-  res.json({ name: 'test' });
-});
 module.exports = router;

@@ -15,7 +15,7 @@ router.get(
       res.json(JSON.parse(cacheSummary));
       return;
     }
-    const summary = await Summary.findOne({ projectId: req.params.projectId });
+    const summary = await Summary.findById(req.params.projectId);
     if (!summary) {
       throw new NotFoundError('Project not found');
     }

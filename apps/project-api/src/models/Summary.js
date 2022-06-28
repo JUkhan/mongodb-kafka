@@ -3,33 +3,26 @@ const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
 
 /**
- * @typedef {'ACTIVE' | 'INACTIVE'} State
- */
-
-/**
  * @typedef {object} IParticipation
- * @property {Number} total
- * @property {State} state
+ * @property {string} state
+ * @property {number} total
  */
-
-/** @type {import('mongoose').Schema<IParticipation>} */
-
-const Participation = new Schema({
-  state: { type: String, enum: ['ACTIVE', 'INACTIVE'], required: true },
-  total: { type: Number, default: 0 },
-});
 
 /**
  * @typedef {object} ISummary
  * @property {import('mongoose').Types.ObjectId} projectId
- * @property {Participation[]} participations
+ * @property {IParticipation[]} participations
  */
 
 /** @type {import('mongoose').Schema<ISummary>} */
 const schema = new Schema(
   {
-    projectId: { type: Schema.Types.ObjectId, ref: 'Project', required: true },
-    participations: [Participation],
+    participations: [
+      {
+        state: String,
+        total: Number,
+      },
+    ],
   },
   {
     toJSON: {

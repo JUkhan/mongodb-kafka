@@ -3,7 +3,7 @@ const asyncHandler = require('express-async-handler');
 const { body } = require('express-validator');
 
 const Project = require('../../models/Project');
-const validateRequest = require('../../common/middlewaares/validate-request');
+const validateRequest = require('../../common/middlewares/validate-request');
 const NotFoundError = require('../../common/errors/not-found-error');
 
 const router = express.Router();

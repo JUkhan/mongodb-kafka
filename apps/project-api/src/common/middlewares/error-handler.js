@@ -18,7 +18,7 @@ function errorHandler(error, req, res, next) {
   console.error(error);
   return res
     .status(400)
-    .send({ errors: [{ message: 'Something went wroong.' }] });
+    .send({ errors: [{ message: 'Something went wrong.' }] });
 }
 
 module.exports = errorHandler;

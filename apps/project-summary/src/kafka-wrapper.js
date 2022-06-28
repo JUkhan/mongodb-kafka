@@ -1,15 +1,16 @@
 const { Kafka } = require('kafkajs');
-const redis = require('redis');
 
-class Publisher {
+class KafkaWrapper {
   /**
    *
    * @param {string} clientId
    * @param {string[]} brokers
+   * @param {string} groupId
    */
-  connectKafka(clientId, brokers) {
-    const kaka = new Kafka({ clientId, brokers });
-    this.producer = kaka.producer();
+  init(clientId, brokers, groupId) {
+    this.groupId = groupId;
+    this.kafka = new Kafka({ clientId, brokers });
+    this.producer = this.kafka.producer();
     this.isConnect = false;
     this.producer.on('producer.connect', () => {
       this.isConnect = true;
@@ -17,20 +18,6 @@ class Publisher {
     this.producer.on('producer.disconnect', () => {
       this.isConnect = false;
     });
-  }
-
-  /**
-   *
-   * @param {string} url
-   */
-  async connectRedis(url) {
-    this.redisClient = redis.createClient({
-      url,
-    });
-    this.redisClient.on('error', (err) =>
-      console.log('Redis Client Error', err),
-    );
-    return this.redisClient.connect();
   }
 
   /**
@@ -52,4 +39,4 @@ class Publisher {
   }
 }
 
-module.exports = new Publisher();
+module.exports = new KafkaWrapper();

@@ -4,27 +4,24 @@ const { Schema, model } = mongoose;
 
 /**
  * @typedef {object} IParticipation
- * @property {String} state
- * @property {Number} total
+ * @property {string} state
+ * @property {number} total
  */
-
-/** @type {import('mongoose').Schema<IParticipation>} */
-
-const Participation = new Schema({
-  state: { type: String, required: true },
-  total: { type: Number, default: 0 },
-});
 
 /**
  * @typedef {object} ISummary
  * @property {import('mongoose').Types.ObjectId} projectId
- * @property {Participation[]} participations
+ * @property {IParticipation[]} participations
  */
 
 /** @type {import('mongoose').Schema<ISummary>} */
 const schema = new Schema({
-  projectId: { type: Schema.Types.ObjectId, ref: 'Project', required: true },
-  participations: [Participation],
+  participations: [
+    {
+      state: String,
+      total: Number,
+    },
+  ],
 });
 
 const Summary = model('Summary', schema);
