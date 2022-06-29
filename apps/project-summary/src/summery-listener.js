@@ -1,15 +1,20 @@
 const Listener = require('./listener');
 const Summary = require('./models/Summary');
+
 class SummaryListener extends Listener {
   topics = ['add', 'update'];
+
+  /* eslint-disable */
   constructor() {
     super();
   }
+
   /**
    *
    * @param {*} obj
    */
   async eachMessageHandler({ topic, message }) {
+    console.log(topic);
     try {
       const participation = JSON.parse(message.value?.toString() ?? '{}');
       let acTotal = participation.state === 'ACTIVE' ? 1 : 0;

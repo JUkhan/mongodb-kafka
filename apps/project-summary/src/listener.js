@@ -9,6 +9,7 @@ class Listener {
   constructor() {
     this.listen();
   }
+  /* eslint-disable */
   async listen() {
     if (kafkaWrapper.kafka) {
       const consumer = kafkaWrapper.kafka.consumer({
@@ -22,15 +23,18 @@ class Listener {
       await consumer.subscribe({
         topics: this.topics,
       });
+
       await consumer.run({
         eachMessage: this.eachMessageHandler,
       });
     }
   }
+
   /**
    *
    * @param {*} obj
    */
+  /* eslint-disable */
   eachMessageHandler(obj) {
     return Promise.resolve();
   }

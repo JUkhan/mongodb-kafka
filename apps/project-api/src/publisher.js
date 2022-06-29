@@ -1,36 +1,17 @@
-const { Kafka } = require('kafkajs');
-const redis = require('redis');
+const kafkaWrapper = require('./kafka-wrapper');
 
 class Publisher {
-  /**
-   *
-   * @param {string} clientId
-   * @param {string[]} brokers
-   */
-  connectKafka(clientId, brokers) {
-    const kaka = new Kafka({ clientId, brokers });
-    this.producer = kaka.producer();
-    this.isConnect = false;
-    this.producer.on('producer.connect', () => {
-      this.isConnect = true;
-    });
-    this.producer.on('producer.disconnect', () => {
-      this.isConnect = false;
-    });
+  init() {
+    this.producer = kafkaWrapper.kafka?.producer();
+    this.producer?.on('producer.connect', () =>
+      console.log('producer connected'),
+    );
   }
 
-  /**
-   *
-   * @param {string} url
-   */
-  async connectRedis(url) {
-    this.redisClient = redis.createClient({
-      url,
-    });
-    this.redisClient.on('error', (err) =>
-      console.log('Redis Client Error', err),
-    );
-    return this.redisClient.connect();
+  connect() {
+    if (this.connecting) return this.connecting;
+    this.connecting = this.producer?.connect();
+    return this.connecting;
   }
 
   /**
@@ -38,12 +19,13 @@ class Publisher {
    * @param {string} topic
    * @param {string|Buffer|Object} message
    */
-  async publish(topic, message) {
-    if (!this.isConnect) await this.producer?.connect();
+  async publish(topic, message, key = undefined) {
+    await this.connect();
     await this.producer?.send({
       topic,
       messages: [
         {
+          key,
           value:
             typeof message === 'object' ? JSON.stringify(message) : message,
         },

@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
+const kafkaWrapper = require('./kafka-wrapper');
+const redisClient = require('./redis-client');
 const publisher = require('./publisher');
-
 const app = require('./app');
 
 async function run() {
@@ -18,8 +19,9 @@ async function run() {
   }
   try {
     await mongoose.connect(process.env.MONGO_DB);
-    await publisher.connectRedis(process.env.REDIS_CACHE);
-    publisher.connectKafka('app1', process.env.KAFKA_BROKERS.split(','));
+    await redisClient.connect(process.env.REDIS_CACHE, 2);
+    kafkaWrapper.init('app1', process.env.KAFKA_BROKERS.split(','), '');
+    publisher.init();
   } catch (ex) {
     console.error(ex);
   }
